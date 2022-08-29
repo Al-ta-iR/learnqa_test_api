@@ -2,17 +2,13 @@ import requests
 
 
 payload = {"login": "secret_login", "password": "secret_pass"}
-response = requests.post("https://playground.learnqa.ru/api/get_auth_cookie", data=payload)
+response1 = requests.post("https://playground.learnqa.ru/api/get_auth_cookie", data=payload)
 
-print(response.text)
-print(response.status_code)
-print(dict(response.cookies)) # добавили функцию dict для удобочитаемости
-print(response.headers)
-print("_________________________________")
+cookie_value = response1.cookies.get('auth_cookie')
 
-payload = {"login": "secret_login", "password": "secret_pass111"}
-response = requests.post("https://playground.learnqa.ru/api/get_auth_cookie", data=payload)
+cookies = {"auth_cookie": cookie_value}
 
-print(response.text)
-print(response.status_code)
-print(dict(response.cookies)) # добавили функцию dict для удобочитаемости
+response2 = requests.post("https://playground.learnqa.ru/api/check_auth_cookie", cookies=cookies)
+
+print(response2.text)
+print(response2.status_code)
