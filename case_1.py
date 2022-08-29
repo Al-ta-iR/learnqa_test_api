@@ -13,3 +13,5 @@ except JSONDecodeError:
     print("Наш ответ получен не в JSON формате")
 finally:
     pass
+
+print(response.status_code)
