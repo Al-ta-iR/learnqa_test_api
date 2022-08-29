@@ -2,16 +2,7 @@ from json import JSONDecodeError
 import requests
 
 
-# payload = {"name": "Mike"}
-response = requests.get('http://playground.learnqa.ru/api/get_text')
+headers = {"some_headers": "123"}
+response = requests.get("https://playground.learnqa.ru/api/show_all_headers", headers=headers)
+
 print(response.text)
-
-try:
-    parsed_response_text = response.json()
-    print(parsed_response_text["answer"])
-except JSONDecodeError:
-    print("Наш ответ получен не в JSON формате")
-finally:
-    pass
-
-print(response.status_code)
