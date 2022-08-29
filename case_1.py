@@ -1,6 +1,6 @@
 import requests
 
 
-response = requests.get('https://playground.learnqa.ru/api/get_text')
+response = requests.get('http://playground.learnqa.ru/api/check_type')
 
 print(response.text)
