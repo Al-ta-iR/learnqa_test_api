@@ -1,5 +1,6 @@
 import pytest
 import requests
+from lib.assertions import Assertions
 from lib.base_case import BaseCase
 
 
@@ -22,6 +23,7 @@ class TestUserAuth(BaseCase):
 		self.token = self.get_header(response1, "x-csrf-token")
 		self.user_id_from_auth_method = self.get_json_value(response1, "user_id")
 
+
 	def test_auth_user(self):
 		response2 = requests.get(
 			"https://playground.learnqa.ru/api/user/auth",
@@ -29,10 +31,12 @@ class TestUserAuth(BaseCase):
 			cookies={"auth_sid": self.auth_sid}
 		)
 
-		response2_pars = response2.json()
-		assert "user_id" in response2_pars, "There is no user id in the second response"
-		user_id_from_check_method = response2_pars["user_id"]
-		assert self.user_id_from_auth_method == user_id_from_check_method, "User id from auth method is no equal to user id from check method"
+		Assertions.assert_json_value_by_name(
+			response2,
+			"user_id",
+			self.user_id_from_auth_method,
+			"User id from auth method is not equal to user id from check method"
+		)
 
 
 	@pytest.mark.parametrize("condition", exclude_params)
@@ -48,11 +52,11 @@ class TestUserAuth(BaseCase):
 				cookies={"auth_sid": self.auth_sid}
 			)
 
-		response2_pars = response2.json()
-		assert "user_id" in response2_pars, "There is no user id in the the second response"
-
-		user_id_from_check_method = response2.json()["user_id"]
-
-		assert user_id_from_check_method == 0, f"User is authorized with condition {condition}"
+		Assertions.assert_json_value_by_name(
+			response2,
+			"user_id",
+			0, # обратим внимание на то, что id приходит к нам как число типа данных integer, поэтому без кавычек как для строки
+			f"User is authorized with condition {condition}"
+		)
 
 # print()
