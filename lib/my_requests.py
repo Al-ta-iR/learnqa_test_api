@@ -1,4 +1,4 @@
-from urllib import request, response
+import requests
 
 
 import requests
@@ -35,13 +35,13 @@ class MyRequests():
             cookies = {}
 
         if method == 'GET':
-            response = request.get(url, params=data, headers=headers, cookies=cookies)
+            response = requests.get(url, params=data, headers=headers, cookies=cookies)
         elif method == 'POST':
-            response = request.post(url, data=data, headers=headers, cookies=cookies)
+            response = requests.post(url, data=data, headers=headers, cookies=cookies)
         elif method == 'PUT':
-            response = request.put(url, data=data, headers=headers, cookies=cookies)
+            response = requests.put(url, data=data, headers=headers, cookies=cookies)
         elif method == 'DELETE':
-            response = request.delete(url, data=data, headers=headers, cookies=cookies)
+            response = requests.delete(url, data=data, headers=headers, cookies=cookies)
         else:
             raise Exception(f"Bad HTTP method '{method}' was received")
 
