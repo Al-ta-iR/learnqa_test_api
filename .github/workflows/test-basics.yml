@@ -1,0 +1,25 @@
+# ------------------------------------------
+# GitHub Action Part-1 basics
+# 
+# AOl, 2022
+# ------------------------------------------
+
+name: GitHub-Action-Basics
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  my_testing:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Print Hello Message
+      run: echo "Hello World from testing"
+  
+  my_deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Print Hello Message
+      run: echo "Hello World from Deploy"
